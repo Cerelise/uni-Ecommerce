@@ -1,0 +1,12 @@
+# uni
+.hbuilderx
+.vite
+node_modules
+uni_modules
+unpackage
+
+
+# django
+__pycache__
+migrations
+media
