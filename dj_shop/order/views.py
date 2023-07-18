@@ -20,18 +20,22 @@ from .serializers import OrderSerializer, MyOrderSerializer
 def checkout(request):
     serializer = OrderSerializer(data=request.data)
 
+    # print(serializer)
+
     if serializer.is_valid():
         stripe.api_key = settings.STRIPE_SECRET_KEY
         paid_amount = sum(
             item.get('quantity') * item.get('product').price
             for item in serializer.validated_data['items'])
+        print(paid_amount)
 
         try:
-            charge = stripe.Charge.create(
-                amount=int(paid_amount * 100),
-                currency='HKD',
-                description='来自商家的订单',
-                source=serializer.validated_data['stripe_token'])
+            # bug stripe 无法验证并创建订单
+            # charge = stripe.Charge.create(
+            #     amount=int(paid_amount * 100),
+            #     currency='USD',
+            #     description='order from unishop',
+            #     source=serializer.validated_data['stripe_token'])
 
             serializer.save(user=request.user, paid_amount=paid_amount)
 
@@ -40,4 +44,15 @@ def checkout(request):
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response('ok')
+
+
+class OrdersList(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        orders = Order.objects.filter(user=request.user)
+        serializer = MyOrderSerializer(orders, many=True)
+        return Response(serializer.data)

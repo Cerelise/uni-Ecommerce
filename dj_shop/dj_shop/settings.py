@@ -26,7 +26,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-STRIPE_API_KEY_HIDDEN = 'sk_test_51NUDmjFYsD1xQvqZQEmgUv8Ag3S8isljJlMxkIzTsTk4isz1LCJ6gWR4wslcBtwNo7GR3vUXNeRbyCMbIAghypgQ00PMTSipPW'
+STRIPE_SECRET_KEY = 'pk_test_51NUDmjFYsD1xQvqZ3Q9dZ9pyUbe1bujRtEcKF7hAtlEEGw5XxE1CfJJhIurJxqep3Pfj4pO1VF8NP0OsmyiruKbr00NVpIA4Fk'
 
 # Application definition
 
@@ -141,3 +141,21 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'handlers': ['console'],
+#             'propagate': True,
+#             'level': 'DEBUG',
+#         },
+#     }
+# }

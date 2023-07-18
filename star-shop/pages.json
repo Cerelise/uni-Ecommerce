@@ -66,6 +66,7 @@
 				"enablePullDownRefresh": false
 			}
 		},
+
 		{
 			"path": "pages/goods/goods",
 			"style": {
@@ -123,7 +124,16 @@
 				"backgroundColorTop": "#00aae2"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/success/success",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"tabBar": {
 		"color": "#ABABAB",
 		"selectedColor": "#00ff66",
