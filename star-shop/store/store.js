@@ -9,6 +9,7 @@ const store = createStore({
 		isAuthenticated: false,
 		token: '',
 		isLoading: false,
+		username: '',
 	},
 	mutations: {
 		initializeStore(state) {
@@ -50,9 +51,13 @@ const store = createStore({
 			state.token = ''
 			state.isAuthenticated = false
 		},
+		setUsername(state, username) {
+			state.username = username
+		},
 		clearCart(state) {
 			state.cart = { items: [] }
 			localStorage.setItem('cart', JSON.stringify(state.cart))
+			// console.log('cart :>> ', state.cart)
 		},
 	},
 	actions: {},

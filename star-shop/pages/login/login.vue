@@ -32,10 +32,27 @@
     },
     onLoad() {},
     methods: {
+      async getUserinfo() {
+        const token = localStorage.getItem('token')
+        await axios
+          .get('http://127.0.0.1:8000/api/userinfo/', {
+            headers: {
+              Authorization: 'Token ' + token,
+            },
+          })
+          .then((res) => {
+            this.userinfo = res.data
+            localStorage.setItem('username', this.userinfo.username)
+            // localStorage.setItem('username', res.data.username)
+            this.$store.commit('setUsername', this.userinfo.username)
+            console.log(this.$store.state.username)
+          })
+
+      },
       async submitForm() {
         // uni.showLoading({
-        // 	title: '登录中...',
-        // 	mask: true,
+        //   title: '登录中...',
+        //   mask: true,
         // })
         axios.defaults.headers.common['Authorization'] = ''
         localStorage.removeItem('token')
@@ -43,18 +60,15 @@
           username: this.username,
           password: this.password,
         }
-        // console.log(formData)
         await axios
           .post('http://127.0.0.1:8000/api/token/login/', formData)
           .then((res) => {
-            console.log(res.data)
+            // console.log(res.data)
             const token = res.data.auth_token
-
             this.$store.commit('setToken', token)
-
             axios.defaults.headers.common['Authorization'] = 'Token ' + token
-
             localStorage.setItem('token', token)
+            this.getUserinfo()
             uni.switchTab({
               url: '/pages/mine/mine',
             })
